@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RefreshRate {
+  hourly
+  daily
+  weekly
+  manual
+}
+
+model Dataset {
+  id               String      @id @default(uuid())
+  slug             String      @unique
+  name             String
+  description      String
+  sourceUrls       Json        @default("[]") // string[]
+  refreshRate      RefreshRate @default(manual)
+  latestSnapshotId String?
+  lastRefreshedAt  DateTime?
+  // Auto-detection: track the latest source data year so we know when
+  // an annual dataset publishes new data (e.g. CO₂ goes 2023→2024)
+  latestSourceYear Int?
+  // Last time the watchdog checked for new publications
+  lastWatchdogAt   DateTime?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  snapshots Snapshot[]
+  cards     Card[]
+
+  @@map("datasets")
+}
+
+model Snapshot {
+  id          String   @id @default(uuid())
+  datasetId   String
+  collectedAt DateTime @default(now())
+  payload     Json
+  sourceHash  String?
+  createdAt   DateTime @default(now())
+
+  dataset Dataset @relation(fields: [datasetId], references: [id])
+  cards   Card[]  @relation("CardSnapshot")
+
+  @@index([datasetId, collectedAt(sort: Desc)])
+  @@map("snapshots")
+}
+
+model Card {
+  id         String  @id @default(uuid())
+  slug       String  @unique
+  datasetId  String
+  snapshotId String?
+  title      String
+  subtitle   String?
+  config     Json
+  isFeatured Boolean @default(false)
+  category   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Future-proof fields (not used in MVP)
+  ownerId    String?
+  isPrivate  Boolean @default(false)
+
+  dataset  Dataset   @relation(fields: [datasetId], references: [id])
+  snapshot Snapshot? @relation("CardSnapshot", fields: [snapshotId], references: [id])
+
+  @@map("cards")
+}
