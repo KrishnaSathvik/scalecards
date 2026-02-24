@@ -18,9 +18,11 @@ import { runAllProbes, runProbe } from "@/lib/datasets/watchdog";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  // Auth check — require CRON_SECRET in production
+  // Auth check — supports ?secret= (manual) and Authorization header (Vercel Cron)
   const { searchParams } = new URL(request.url);
-  const secret = searchParams.get("secret");
+  const secret =
+    searchParams.get("secret") ||
+    request.headers.get("authorization")?.replace("Bearer ", "");
   if (process.env.CRON_SECRET && secret !== process.env.CRON_SECRET) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

@@ -11,8 +11,10 @@ import crypto from "crypto";
 export async function GET(req: Request) {
   const url = new URL(req.url);
 
-  // Auth check — require CRON_SECRET in production
-  const secret = url.searchParams.get("secret");
+  // Auth check — supports ?secret= (manual) and Authorization header (Vercel Cron)
+  const secret =
+    url.searchParams.get("secret") ||
+    req.headers.get("authorization")?.replace("Bearer ", "");
   if (process.env.CRON_SECRET && secret !== process.env.CRON_SECRET) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
