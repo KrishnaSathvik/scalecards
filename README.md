@@ -15,15 +15,15 @@ Unit-based data visualizations that make big numbers tangible, shareable, and so
 
 ScaleCards turns overwhelming statistics into interactive dot-grid visualizations. Each card represents a real-world dataset — from global CO₂ emissions to live Bitcoin prices — rendered as a grid where **every dot represents a unit** (e.g., 1 dot = 10M people).
 
-**26 cards** across 5 categories:
+**36 cards** across 5 categories:
 
 | Category | Examples |
 |----------|----------|
-| 🔴 **Live Data** | Bitcoin price, Ethereum, flights in the air, earthquakes today |
-| 💰 **Finance** | US National Debt, Trillion Dollar Club, market mood |
-| 🌍 **Environment** | CO₂ emissions, renewable energy, ocean plastic, deforestation |
-| 👥 **Humanity** | World population growth, poverty line, water access, food waste |
-| 💻 **Technology** | Active satellites, internet access, smartphone adoption, AI adoption |
+| 🔴 **Live Data** | Bitcoin price, Ethereum, flights in the air, earthquakes today, active satellites, near-Earth asteroids, solar activity |
+| 💰 **Finance** | US National Debt, Trillion Dollar Club, market mood, billionaires vs GDP, generational wealth, extreme poverty |
+| 🌍 **Environment** | CO₂ emissions, renewable energy, ocean plastic, deforestation, global land use, temperature anomaly, water usage, e-waste |
+| 👥 **Humanity** | World population growth, poverty line, causes of mortality, eradicated diseases, food waste |
+| 💻 **Technology** | Internet access, smartphone adoption, AI adoption, semiconductor manufacturing, data creation, cyberattacks |
 
 ---
 
@@ -107,7 +107,7 @@ scalecards/
 
 ## Data Sources
 
-All 26 datasets pull from **real, public APIs** — no hardcoded data:
+All 36 datasets pull from **real, public APIs** — no hardcoded data:
 
 | Source | Datasets | Refresh |
 |--------|----------|---------|
@@ -116,14 +116,15 @@ All 26 datasets pull from **real, public APIs** — no hardcoded data:
 | OpenSky Network | Flights in the air | Hourly |
 | USGS | Earthquakes today | Hourly |
 | NASA NeoWs | Near-Earth asteroids | Daily |
-| Worldometer | Population growth | Daily |
+| Worldometer/UN | Population growth | Daily |
 | Wikimedia | Wikipedia pageviews | Daily |
 | Finnhub | Trillion Dollar Club, Market Mood | Hourly |
-| Our World in Data | CO₂, EVs, energy, poverty, water | Weekly |
+| Our World in Data | CO₂, EVs, energy, poverty, water, land use | Weekly |
 | World Bank API | Military, internet, smartphones | Weekly |
 | Ember Energy | Renewable energy mix | Weekly |
 | UCS / Celestrak | Active satellites | Weekly |
-| Various estimates | AI adoption, cyber threats, food, plastic, forests | Weekly |
+| NOAA | Temperature anomaly, Solar activity | Weekly/Daily |
+| Various estimates | AI adoption, cyber threats, food waste, ocean plastic, wealth inequality, e-waste, semiconductors, data creation, diseases, billionaires | Weekly |
 
 ---
 
@@ -162,7 +163,7 @@ INNGEST_SIGNING_KEY=""          # Background jobs
 ```bash
 npm run dev          # Dev server
 npm run build        # Production build
-npm run db:seed      # Seed 26 datasets + cards
+npm run db:seed      # Seed 36 datasets + cards
 npm run db:reset     # Wipe + re-seed
 npm run db:studio    # Prisma Studio (browse data)
 ```
