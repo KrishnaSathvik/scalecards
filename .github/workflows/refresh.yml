@@ -1,0 +1,15 @@
+name: Hourly Data Refresh
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs at minute 0 past every hour
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Refresh Endpoint
+        run: |
+          curl -X GET "https://scalecards.dev/api/refresh?force=true" \
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
