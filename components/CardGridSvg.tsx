@@ -71,7 +71,9 @@ export default function CardGridSvg({
   const svgHeight = spec.rows * cellSize;
 
   const handleMouseEnter = (cell: GridCell, event: React.MouseEvent<SVGRectElement>) => {
-    if (!interactive || !cell.categoryKey) return;
+    // Disable tooltips for the first two rows (index 0 and 1) to prevent them 
+    // from being cut off or obscured at the top of the card container.
+    if (!interactive || !cell.categoryKey || cell.row < 2) return;
 
     const category = spec.legend.find((l) => l.key === cell.categoryKey);
     if (!category) return;
