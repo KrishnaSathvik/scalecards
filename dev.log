@@ -26,9 +26,21 @@ Persisting failed: Another write batch or compaction is already active (Only a s
 Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
 Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
 Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+
+thread 'tokio-runtime-worker' (95866070) panicked at /Users/geist/dev/actions-runner/_work/next.js/next.js/turbopack/crates/turbo-tasks-backend/src/backend/operation/mod.rs:156:17:
+Failed to restore task data (corrupted database or bug): Data for app_entry_point_to_route (TaskId 354))
+
+Caused by:
+    0: Looking up data for TaskId 354 from database failed
+    1: Unable to open static sorted file referenced from 00000007.meta
+    2: Unable to open static sorted file 00000002.sst
+    3: No such file or directory (os error 2)
 Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
- in 1027ms (compile: 1864µs, render: 1025ms)
-⨯ Error: Module [project]/node_modules/next/dist/esm/lib/metadata/generate/icon-mark.js [app-ssr] (ecmascript) was instantiated because it was required from module [project]/node_modules/next/dist/esm/build/templates/app-page.js?page=/page { GLOBAL_ERROR_MODULE => "[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-rsc] (ecmascript, Next.js Server Component)", METADATA_0 => "[project]/app/icon.png.mjs { IMAGE => \"[project]/app/icon.png (static in ecmascript, tag client)\" } [app-rsc] (structured image object, ecmascript, Next.js Server Component)", MODULE_1 => "[project]/app/layout.tsx [app-rsc] (ecmascript, Next.js Server Component)", MODULE_2 => "[project]/app/not-found.tsx [app-rsc] (ecmascript, Next.js Server Component)", MODULE_3 => "[project]/node_modules/next/dist/client/components/builtin/forbidden.js [app-rsc] (ecmascript, Next.js Server Component)", MODULE_4 => "[project]/node_modules/next/dist/client/components/builtin/unauthorized.js [app-rsc] (ecmascript, Next.js Server Component)", MODULE_5 => "[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-rsc] (ecmascript, Next.js Server Component)", METADATA_6 => "[project]/app/icon.png.mjs { IMAGE => \"[project]/app/icon.png (static in ecmascript, tag client)\" } [app-rsc] (structured image object, ecmascript, Next.js Server Component)", MODULE_7 => "[project]/app/page.tsx [app-rsc] (ecmascript, Next.js Server Component)" } [app-rsc] (ecmascript) <locals>, but the module factory is not available.
+enced from 00000010.meta
+    2: Unable to open static sorted file 00000002.sst
+    3: No such file or directory (os error 2)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+cript, Next.js Server Component)", MODULE_3 => "[project]/node_modules/next/dist/client/components/builtin/forbidden.js [app-rsc] (ecmascript, Next.js Server Component)", MODULE_4 => "[project]/node_modules/next/dist/client/components/builtin/unauthorized.js [app-rsc] (ecmascript, Next.js Server Component)", MODULE_5 => "[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-rsc] (ecmascript, Next.js Server Component)", METADATA_6 => "[project]/app/icon.png.mjs { IMAGE => \"[project]/app/icon.png (static in ecmascript, tag client)\" } [app-rsc] (structured image object, ecmascript, Next.js Server Component)", MODULE_7 => "[project]/app/page.tsx [app-rsc] (ecmascript, Next.js Server Component)" } [app-rsc] (ecmascript) <locals>, but the module factory is not available.
     at ignore-listed frames {
   digest: '3174939740'
 }
@@ -1171,3 +1183,25 @@ https://nextjs.org/docs/messages/module-not-found
  GET /v/us-national-debt-live 200 in 69ms (compile: 27ms, render: 42ms)
  GET /manifest.webmanifest 200 in 12ms (compile: 6ms, render: 6ms)
  GET /api/og/us-national-debt-live?download=true&theme=light 200 in 206ms (compile: 46ms, render: 160ms)
+ GET /v/us-national-debt-live 200 in 1324ms (compile: 141ms, render: 1183ms)
+ GET / 200 in 322ms (compile: 85ms, render: 237ms)
+ GET /manifest.webmanifest 200 in 149ms (compile: 86ms, render: 63ms)
+ GET / 200 in 882ms (compile: 165ms, render: 718ms)
+ GET /manifest.webmanifest 200 in 36ms (compile: 17ms, render: 19ms)
+○ Compiling /api/refresh ...
+ GET /api/refresh?force=true 200 in 17.2s (compile: 4.6s, render: 12.6s)
+✓ Compiled in 1261ms
+ GET / 200 in 1296ms (compile: 428ms, render: 868ms)
+ GET /manifest.webmanifest 200 in 111ms (compile: 36ms, render: 74ms)
+ GET / 200 in 204ms (compile: 10ms, render: 194ms)
+ GET /manifest.webmanifest 200 in 8ms (compile: 4ms, render: 4ms)
+✓ Compiled in 92ms
+ GET / 200 in 125ms (compile: 12ms, render: 113ms)
+ GET /manifest.webmanifest 200 in 15ms (compile: 8ms, render: 7ms)
+ GET / 200 in 811ms (compile: 138ms, render: 674ms)
+ GET /manifest.webmanifest 200 in 44ms (compile: 27ms, render: 17ms)
+ GET /manifest.webmanifest 200 in 22ms (compile: 16ms, render: 5ms)
+ GET / 200 in 327ms (compile: 37ms, render: 290ms)
+ GET /manifest.webmanifest 200 in 5ms (compile: 1908µs, render: 3ms)
+ GET / 200 in 115ms (compile: 1552µs, render: 113ms)
+ GET /manifest.webmanifest 200 in 8ms (compile: 5ms, render: 3ms)
