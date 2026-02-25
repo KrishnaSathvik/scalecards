@@ -1,7 +1,7 @@
 // components/CardGridSvg.tsx
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { GridSpec, GridCell } from "@/lib/grid";
 import { formatNumber } from "@/lib/grid";
 
@@ -42,6 +42,20 @@ export default function CardGridSvg({
   });
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
+  // Close tooltip if tapping outside on mobile
+  // Uses React useEffect (so must be imported if missing, let's assume it is or will add)
+
+  useEffect(() => {
+    function handleTouchOutside(e: TouchEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setTooltip({ visible: false, x: 0, y: 0, cell: null, category: null });
+        setHoveredCategory(null);
+      }
+    }
+    document.addEventListener("touchstart", handleTouchOutside);
+    return () => document.removeEventListener("touchstart", handleTouchOutside);
+  }, []);
+
   // Auto-size dots based on grid dimensions
   const maxWidth = 800;
   const autoGap = spec.cols > 30 ? 1 : 2;
@@ -75,10 +89,21 @@ export default function CardGridSvg({
     const cellScreenX = svgRect.left + cell.col * cellSize * scaleX + (dotSize * scaleX) / 2;
     const cellScreenY = svgRect.top + cell.row * cellSize * scaleY;
 
+    let tooltipX = cellScreenX - containerRect.left;
+    const tooltipY = cellScreenY - containerRect.top - 8;
+
+    // Prevent tooltip from overflowing edges on mobile
+    const estimatedTooltipWidth = 140;
+    const minX = estimatedTooltipWidth / 2 + 10;
+    const maxX = containerRect.width - estimatedTooltipWidth / 2 - 10;
+
+    if (tooltipX < minX) tooltipX = minX;
+    if (tooltipX > maxX) tooltipX = maxX;
+
     setTooltip({
       visible: true,
-      x: cellScreenX - containerRect.left,
-      y: cellScreenY - containerRect.top - 8,
+      x: tooltipX,
+      y: tooltipY,
       cell,
       category: {
         label: category.label,
@@ -97,7 +122,16 @@ export default function CardGridSvg({
   };
 
   return (
-    <div className="overflow-x-auto relative" ref={containerRef}>
+    <div
+      className="overflow-x-auto relative"
+      ref={containerRef}
+      style={{
+        // Prevent pan/zoom on mobile while touching the grid area
+        touchAction: interactive ? "none" : "auto",
+        WebkitUserSelect: "none",
+        userSelect: "none"
+      }}
+    >
       <svg
         width="100%"
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
@@ -106,6 +140,10 @@ export default function CardGridSvg({
         aria-label={`Grid visualization showing ${spec.legend
           .map((l) => `${l.label}: ${l.dots} dots`)
           .join(", ")}`}
+        style={{
+          // Prevent default touch behaviors on the SVG itself
+          touchAction: "none"
+        }}
       >
         {spec.cells.map((cell) => {
           const isHoveredCategory = hoveredCategory && cell.categoryKey === hoveredCategory;
@@ -130,12 +168,21 @@ export default function CardGridSvg({
               className={interactive && cell.categoryKey ? "cursor-pointer" : ""}
               style={{
                 transition: "opacity 0.2s ease, transform 0.15s ease",
+                // Remove tap highlight on mobile
+                WebkitTapHighlightColor: "transparent",
                 ...(isHoveredCategory
                   ? { filter: "brightness(1.2)" }
                   : {}),
               }}
-              onMouseEnter={(e) => handleMouseEnter(cell, e)}
+              // Handle both mouse hover and mobile tap
+              onMouseEnter={(e) => handleMouseEnter(cell, e as unknown as React.MouseEvent<SVGRectElement>)}
+              onTouchStart={(e) => {
+                // Prevent default scrolling when touching a dot
+                e.preventDefault();
+                handleMouseEnter(cell, e as unknown as React.MouseEvent<SVGRectElement>);
+              }}
               onMouseLeave={handleMouseLeave}
+            // Don't clear on touch end, let them tap elsewhere to dismiss
             />
           );
         })}
@@ -151,6 +198,7 @@ export default function CardGridSvg({
             transform: "translate(-50%, -100%)",
           }}
         >
+          {/* Color + Label */}
           <div className="flex items-center gap-2 mb-1">
             <span
               className="w-2.5 h-2.5 rounded-full shrink-0"
@@ -160,11 +208,23 @@ export default function CardGridSvg({
               {tooltip.category.label}
             </span>
           </div>
+
+          {/* Unit Value + Percentage */}
           <div className="text-xs text-muted-foreground font-mono">
             {formatNumber(tooltip.category.value)} {spec.meta.unitLabel}
+            <span className="opacity-70 ml-1">
+              ({((tooltip.category.value / spec.meta.total) * 100).toFixed(1)}%)
+            </span>
           </div>
-          <div className="text-xs text-muted-foreground font-mono opacity-70">
-            {tooltip.category.dots} dots
+
+          {/* Enhanced Dot Count */}
+          <div className="text-xs text-muted-foreground font-mono opacity-70 mt-1 pt-1 border-t border-border/50">
+            {tooltip.category.dots} of {spec.totalCells} dots
+          </div>
+
+          {/* Scale Reference */}
+          <div className="text-[10px] text-muted-foreground/60 font-mono mt-0.5">
+            1 dot ≈ {formatNumber(spec.meta.dotValue)} {spec.meta.unitLabel}
           </div>
         </div>
       )}

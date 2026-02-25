@@ -71,6 +71,7 @@ scalecards/
 ├── app/
 │   ├── page.tsx                 # Gallery — filterable card grid
 │   ├── v/[slug]/page.tsx        # Card detail page
+│   ├── embed/[slug]/page.tsx    # Iframe embeddable card view
 │   ├── api/
 │   │   ├── refresh/             # Data refresh endpoints (auth-protected)
 │   │   ├── watchdog/            # Annual data publication detector
@@ -80,7 +81,7 @@ scalecards/
 │   ├── robots.ts                # SEO: robots.txt
 │   ├── sitemap.ts               # SEO: dynamic sitemap
 │   └── manifest.ts              # PWA manifest
-├── components/                  # React components
+├── components/                  # React components (cards, filters, pagination)
 ├── lib/
 │   ├── grid.ts                  # Core grid math (shared by all renderers)
 │   ├── db.ts                    # Prisma singleton
@@ -130,7 +131,7 @@ All 26 datasets pull from **real, public APIs** — no hardcoded data:
 
 - **Next.js 15** (App Router, ISR 60s)
 - **TypeScript** (strict mode)
-- **Tailwind CSS** (dark/light theme)
+- **Tailwind CSS** (clean light theme)
 - **PostgreSQL** via Neon/Supabase
 - **Prisma** ORM
 - **Inngest** for scheduled jobs

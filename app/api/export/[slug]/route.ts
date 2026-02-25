@@ -16,8 +16,6 @@ export async function GET(
 ) {
   const { slug } = await params;
   const url = new URL(request.url);
-  const theme = url.searchParams.get("theme") || "dark";
-  const isDark = theme !== "light";
 
   const card = await prisma.card.findUnique({
     where: { slug },
@@ -57,12 +55,12 @@ export async function GET(
   const gridY = padding + titleHeight;
   const gridX = centerX - (gridWidth / 2);
 
-  const bgColor = isDark ? "#0a0a14" : "#ffffff";
-  const titleColor = isDark ? "#f4f4f5" : "#18181b";
-  const subtitleColor = isDark ? "#71717a" : "#52525b";
-  const emptyCellColor = isDark ? "#1a1a2e" : "#f1f5f9";
-  const legendTextColor = isDark ? "#a1a1aa" : "#52525b";
-  const footerTextColor = isDark ? "#3f3f46" : "#a1a1aa";
+  const bgColor = "#ffffff";
+  const titleColor = "#18181b";
+  const subtitleColor = "#52525b";
+  const emptyCellColor = "#f1f5f9";
+  const legendTextColor = "#52525b";
+  const footerTextColor = "#a1a1aa";
 
   // Pre-calculate legend layout to determine SVG height and center it
   const legendParts: string[] = [];

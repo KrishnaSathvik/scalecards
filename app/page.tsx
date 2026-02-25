@@ -1,6 +1,5 @@
 // app/page.tsx
 import { prisma } from "@/lib/db";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import GalleryGrid from "@/components/GalleryGrid";
 
 export const revalidate = 60; // ISR: revalidate every 60 seconds
@@ -36,13 +35,12 @@ export default async function GalleryPage() {
   return (
     <div className="min-h-screen bg-grid">
       {/* Header */}
-      <header className="max-w-6xl mx-auto px-6 pt-16 pb-12">
+      <header className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-8 sm:pb-12">
         <div className="animate-fade-in opacity-0">
           <div className="flex justify-between items-center mb-4">
             <p className="font-mono text-xs tracking-[0.3em] uppercase text-gradient">
               ScaleCards
             </p>
-            <ThemeToggle />
           </div>
           <h1 className="text-hero text-gradient font-extrabold tracking-tight leading-tight">
             See the numbers.<br />
@@ -55,12 +53,12 @@ export default async function GalleryPage() {
       </header>
 
       {/* Card Grid with Filters */}
-      <main className="max-w-6xl mx-auto px-6 pb-24">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 pb-20 sm:pb-24">
         <GalleryGrid cards={serializedCards} />
       </main>
 
       {/* Footer */}
-      <footer className="max-w-6xl mx-auto px-6 pb-12 text-center">
+      <footer className="max-w-6xl mx-auto px-4 sm:px-6 pb-12 text-center">
         <div className="mt-8">
           <p className="text-xs text-gradient font-mono">
             ScaleCards — Data sourced, visualized, shareable.

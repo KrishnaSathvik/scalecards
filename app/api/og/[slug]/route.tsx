@@ -19,8 +19,6 @@ export async function GET(
   const { slug } = await params;
   const url = new URL(_request.url);
   const isDownload = url.searchParams.get("download") === "true";
-  const theme = url.searchParams.get("theme") || "dark";
-  const isDark = theme !== "light";
 
   // Note: In edge runtime, you'd typically use a lighter DB client
   // or fetch from an API endpoint. For MVP, this works with Prisma edge.
@@ -60,12 +58,12 @@ export async function GET(
   const gridWidth = spec.cols * cellSize;
   const gridHeight = spec.rows * cellSize;
 
-  const bgColor = isDark ? "#0a0a14" : "#ffffff";
-  const titleColor = isDark ? "#f4f4f5" : "#18181b";
-  const subtitleColor = isDark ? "#71717a" : "#52525b";
-  const emptyCellColor = isDark ? "#1a1a2e" : "#f1f5f9";
-  const legendTextColor = isDark ? "#a1a1aa" : "#52525b";
-  const footerTextColor = isDark ? "#3f3f46" : "#a1a1aa";
+  const bgColor = "#ffffff";
+  const titleColor = "#18181b";
+  const subtitleColor = "#52525b";
+  const emptyCellColor = "#f1f5f9";
+  const legendTextColor = "#52525b";
+  const footerTextColor = "#a1a1aa";
 
   return new ImageResponse(
     (

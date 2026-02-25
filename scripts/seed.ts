@@ -302,6 +302,79 @@ const datasets: SeedDataset[] = [
     ],
     refreshRate: "weekly",
   },
+  // ─────────────────────────────────────────────
+  // BRAND NEW DATASETS (10)
+  // ─────────────────────────────────────────────
+  {
+    slug: "global-ewaste",
+    name: "Global E-Waste",
+    description: "Millions of tonnes of electronic waste generated annually versus the fraction properly recycled.",
+    sourceUrls: ["https://ewastemonitor.info/"],
+    refreshRate: "weekly",
+  },
+  {
+    slug: "global-land-use",
+    name: "Global Land Use",
+    description: "How the world's habitable land is strictly divided (Agriculture vs Forests vs Urban).",
+    sourceUrls: ["https://ourworldindata.org/land-use"],
+    refreshRate: "weekly",
+  },
+  {
+    slug: "ships-at-sea",
+    name: "Ships at Sea",
+    description: "Live commercial shipping cargo vessels currently navigating the oceans.",
+    sourceUrls: ["https://www.marinetraffic.com/"],
+    refreshRate: "hourly",
+  },
+  {
+    slug: "solar-activity-today",
+    name: "Solar Activity Today",
+    description: "Current number of active sunspots tracked on the Sun today.",
+    sourceUrls: ["https://www.swpc.noaa.gov/"],
+    refreshRate: "daily",
+  },
+  {
+    slug: "billionaires-vs-gdp",
+    name: "Billionaire Wealth vs GDP",
+    description: "Net worth of the world's top 10 richest individuals compared against national GDPs.",
+    sourceUrls: ["https://www.forbes.com/billionaires/"],
+    refreshRate: "weekly",
+  },
+  {
+    slug: "generational-wealth",
+    name: "Generational Wealth",
+    description: "The breakdown of total US wealth held by Baby Boomers, Gen X, and Millennials.",
+    sourceUrls: ["https://www.federalreserve.gov/releases/z1/dataviz/dfa/distribute/chart/"],
+    refreshRate: "weekly",
+  },
+  {
+    slug: "causes-of-mortality",
+    name: "Global Causes of Mortality",
+    description: "Proportional breakdown of what humanity dies from annually.",
+    sourceUrls: ["https://ourworldindata.org/causes-of-death"],
+    refreshRate: "weekly",
+  },
+  {
+    slug: "eradicated-diseases",
+    name: "Lives Saved by Vaccines",
+    description: "Visualizing lives saved by global vaccination programs historically.",
+    sourceUrls: ["https://ourworldindata.org/vaccination"],
+    refreshRate: "weekly",
+  },
+  {
+    slug: "data-creation",
+    name: "Data Creation & Storage",
+    description: "Visualizing the Zettabytes of data created this year globally.",
+    sourceUrls: ["https://www.statista.com/statistics/871513/worldwide-data-created/"],
+    refreshRate: "weekly",
+  },
+  {
+    slug: "semiconductor-manufacturing",
+    name: "Semiconductor Manufacturing",
+    description: "The extreme concentration of advanced microchip manufacturing market share.",
+    sourceUrls: ["https://www.trendforce.com/"],
+    refreshRate: "weekly",
+  },
 ];
 
 // ─────────────────────────────────────────────
@@ -700,6 +773,156 @@ const snapshots: SeedSnapshot[] = [
       notes:
         "FAO AQUASTAT (2024). Global freshwater withdrawal: ~4,000 km³/year. Agriculture dominates at 70%. 2 billion people live in water-stressed countries.",
     },
+  },
+  // ─────────────────────────────────────────────
+  // BRAND NEW SNAPSHOTS (10)
+  // ─────────────────────────────────────────────
+  {
+    datasetSlug: "global-ewaste",
+    payload: {
+      unitLabel: "million tonnes/year",
+      dotValue: 1,
+      total: 62,
+      categories: [
+        { key: "unrecycled", label: "Unmanaged / Dumped", value: 48 },
+        { key: "recycled", label: "Properly Recycled", value: 14 },
+      ],
+      notes: "Global E-waste Monitor (2024). 62 million tonnes generated annually. Only 22.3% is documented as formally collected and recycled.",
+    }
+  },
+  {
+    datasetSlug: "global-land-use",
+    payload: {
+      unitLabel: "% of habitable land",
+      dotValue: 1,
+      total: 100,
+      categories: [
+        { key: "agriculture", label: "Agriculture", value: 46 },
+        { key: "forests", label: "Forests", value: 38 },
+        { key: "shrub", label: "Shrubs / Grassland", value: 14 },
+        { key: "urban", label: "Urban / Built-up", value: 2 },
+      ],
+      notes: "Our World in Data. Half of global habitable land is used for agriculture. Urban centers, despite housing over half the population, use just 1.5%.",
+    }
+  },
+  {
+    datasetSlug: "ships-at-sea",
+    payload: {
+      unitLabel: "ships",
+      dotValue: 200,
+      total: 50000,
+      categories: [
+        { key: "cargo", label: "Cargo / Freight", value: 35000 },
+        { key: "tankers", label: "Tankers", value: 10000 },
+        { key: "passenger", label: "Passenger / Other", value: 5000 },
+      ],
+      notes: "MarineTraffic estimates roughly 50,000 to 60,000 merchant ships trading internationally at any given moment.",
+    }
+  },
+  {
+    datasetSlug: "solar-activity-today",
+    payload: {
+      unitLabel: "sunspots",
+      dotValue: 1,
+      total: 120,
+      categories: [
+        { key: "sunspots", label: "Active Sunspots today", value: 120 },
+      ],
+      notes: "NOAA Space Weather Prediction Center. Sunspot number varies daily. Peak solar maximum pushes this well over 100+.",
+    }
+  },
+  {
+    datasetSlug: "billionaires-vs-gdp",
+    payload: {
+      unitLabel: "billion USD",
+      dotValue: 10,
+      total: 1500,
+      categories: [
+        { key: "musk", label: "Elon Musk", value: 250 },
+        { key: "arnault", label: "Bernard Arnault", value: 230 },
+        { key: "bezos", label: "Jeff Bezos", value: 190 },
+        { key: "zuckerberg", label: "Mark Zuckerberg", value: 160 },
+        { key: "gdp_nations", label: "Equivalent to GDP of bottom 50 nations", value: 670 },
+      ],
+      notes: "Forbes Real-Time Billionaires. The top few individuals hold wealth surpassing the combined GDP of dozens of smaller developing nations.",
+    }
+  },
+  {
+    datasetSlug: "generational-wealth",
+    payload: {
+      unitLabel: "% of US wealth",
+      dotValue: 1,
+      total: 100,
+      categories: [
+        { key: "boomers", label: "Baby Boomers (~$75T)", value: 50 },
+        { key: "genx", label: "Generation X (~$40T)", value: 27 },
+        { key: "silent", label: "Silent Gen (~$18T)", value: 14 },
+        { key: "millennials", label: "Millennials (~$13T)", value: 9 },
+      ],
+      notes: "Federal Reserve Board (2024). Boomers hold half of all US wealth. Millennials hold roughly 9% despite making up the largest workforce segment.",
+    }
+  },
+  {
+    datasetSlug: "causes-of-mortality",
+    payload: {
+      unitLabel: "million deaths/year",
+      dotValue: 0.5,
+      total: 61,
+      categories: [
+        { key: "cardio", label: "Cardiovascular diseases", value: 20 },
+        { key: "cancer", label: "Cancers", value: 10 },
+        { key: "respiratory", label: "Respiratory diseases", value: 4 },
+        { key: "digestive", label: "Digestive/Other NCDs", value: 15 },
+        { key: "infectious", label: "Infectious diseases & maternal", value: 8 },
+        { key: "injuries", label: "Injuries", value: 4 },
+      ],
+      notes: "Our World in Data / WHO. Around 61 million people die each year. Cardiovascular disease remains the leading cause globally. (Numbers simplified).",
+    }
+  },
+  {
+    datasetSlug: "eradicated-diseases",
+    payload: {
+      unitLabel: "million lives saved",
+      dotValue: 2,
+      total: 154,
+      categories: [
+        { key: "measles", label: "Measles", value: 94 },
+        { key: "polio", label: "Polio", value: 22 },
+        { key: "tetanus", label: "Neonatal tetanus", value: 15 },
+        { key: "other", label: "Other vaccines", value: 23 },
+      ],
+      notes: "WHO (2024 report): Global immunization efforts have saved an estimated 154 million lives over the last 50 years, primarily infants.",
+    }
+  },
+  {
+    datasetSlug: "data-creation",
+    payload: {
+      unitLabel: "Zettabytes (ZB)",
+      dotValue: 1,
+      total: 147,
+      categories: [
+        { key: "video", label: "Video streaming & media", value: 70 },
+        { key: "social", label: "Social & Communications", value: 30 },
+        { key: "enterp", label: "Enterprise/IoT/Cloud", value: 40 },
+        { key: "other", label: "Other", value: 7 },
+      ],
+      notes: "Statista (2024 estimate). 147 Zettabytes generated worldwide. 1 ZB = 1 billion Terabytes.",
+    }
+  },
+  {
+    datasetSlug: "semiconductor-manufacturing",
+    payload: {
+      unitLabel: "% of advanced chips (<10nm)",
+      dotValue: 1,
+      total: 100,
+      categories: [
+        { key: "tsmc", label: "Taiwan (TSMC)", value: 68 },
+        { key: "samsung", label: "South Korea (Samsung)", value: 17 },
+        { key: "intel", label: "USA (Intel)", value: 12 },
+        { key: "other", label: "Other", value: 3 },
+      ],
+      notes: "TrendForce. The global supply of the most advanced logic chips is heavily centralized, mostly manufactured in Taiwan.",
+    }
   },
 ];
 
@@ -1102,6 +1325,157 @@ const cards: SeedCard[] = [
     isFeatured: true,
     category: "environment",
   },
+  // ── BRAND NEW CARDS (10) ──
+  {
+    slug: "e-waste",
+    datasetSlug: "global-ewaste",
+    title: "The mountain of electronic waste",
+    subtitle: "62 million tonnes of e-waste a year. Less than a quarter is recycled.",
+    config: {
+      grid: { rows: 8, cols: 8 },
+      ogGrid: { rows: 8, cols: 8 },
+      palette: { unrecycled: "#ef4444", recycled: "#22c55e" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "environment",
+  },
+  {
+    slug: "global-land-use",
+    datasetSlug: "global-land-use",
+    title: "How we use the Earth's land",
+    subtitle: "Urban areas hold half of humanity, but take up just 2% of habitable land. Agriculture takes 46%.",
+    config: {
+      grid: { rows: 10, cols: 10 },
+      ogGrid: { rows: 10, cols: 10 },
+      palette: { agriculture: "#f59e0b", forests: "#22c55e", shrub: "#6b7280", urban: "#a8a29e" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "environment",
+  },
+  {
+    slug: "ships-at-sea",
+    datasetSlug: "ships-at-sea",
+    title: "Ships navigating the oceans right now",
+    subtitle: "Every dot represents 200 massive sea vessels. The arteries of global trade.",
+    config: {
+      grid: { rows: 15, cols: 17 },
+      ogGrid: { rows: 15, cols: 17 },
+      palette: { cargo: "#3b82f6", tankers: "#8b5cf6", passenger: "#ec4899" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "live",
+  },
+  {
+    slug: "sunspots-today",
+    datasetSlug: "solar-activity-today",
+    title: "Sunspots active today",
+    subtitle: "Live solar activity. The more spots, the stronger the solar storms.",
+    config: {
+      grid: { rows: 10, cols: 12 },
+      ogGrid: { rows: 10, cols: 12 },
+      palette: { sunspots: "#f59e0b" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "live",
+  },
+  {
+    slug: "billionaires-gdp",
+    datasetSlug: "billionaires-vs-gdp",
+    title: "The wealth of a few vs the GDP of nations",
+    subtitle: "Top tech billionaires' net worth compares directly to entire national economies.",
+    config: {
+      grid: { rows: 10, cols: 15 },
+      ogGrid: { rows: 10, cols: 15 },
+      palette: { musk: "#06b6d4", arnault: "#f43f5e", bezos: "#f59e0b", zuckerberg: "#3b82f6", gdp_nations: "#6b7280" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "finance",
+  },
+  {
+    slug: "millennial-wealth",
+    datasetSlug: "generational-wealth",
+    title: "Who holds the wealth? (US)",
+    subtitle: "Baby boomers hold 50% of the wealth. Millennials hold just 9%.",
+    config: {
+      grid: { rows: 10, cols: 10 },
+      ogGrid: { rows: 10, cols: 10 },
+      palette: { boomers: "#8b5cf6", genx: "#3b82f6", silent: "#6b7280", millennials: "#10b981" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "finance",
+  },
+  {
+    slug: "causes-of-death",
+    datasetSlug: "causes-of-mortality",
+    title: "What ends a human life?",
+    subtitle: "Cardiovascular diseases are the undisputed leading cause of global mortality.",
+    config: {
+      grid: { rows: 11, cols: 11 },
+      ogGrid: { rows: 11, cols: 11 },
+      palette: { cardio: "#ef4444", cancer: "#f97316", respiratory: "#3b82f6", digestive: "#f59e0b", infectious: "#10b981", injuries: "#6b7280" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "humanity",
+  },
+  {
+    slug: "vaccine-impact",
+    datasetSlug: "eradicated-diseases",
+    title: "154 million lives saved",
+    subtitle: "Global immunization over 50 years has preserved over a hundred million lives.",
+    config: {
+      grid: { rows: 9, cols: 9 },
+      ogGrid: { rows: 9, cols: 9 },
+      palette: { measles: "#ef4444", polio: "#3b82f6", tetanus: "#f59e0b", other: "#10b981" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "humanity",
+  },
+  {
+    slug: "zettabytes",
+    datasetSlug: "data-creation",
+    title: "The Zettabyte Era",
+    subtitle: "Every dot represents 1 billion Terabytes. Video streaming is half the internet.",
+    config: {
+      grid: { rows: 12, cols: 13 },
+      ogGrid: { rows: 12, cols: 13 },
+      palette: { video: "#ec4899", social: "#3b82f6", enterp: "#8b5cf6", other: "#6b7280" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "technology",
+  },
+  {
+    slug: "chip-monopoly",
+    datasetSlug: "semiconductor-manufacturing",
+    title: "The extreme concentration of advanced chips",
+    subtitle: "Taiwan (TSMC) dominates 68% of the advanced microchip supply chain.",
+    config: {
+      grid: { rows: 10, cols: 10 },
+      ogGrid: { rows: 10, cols: 10 },
+      palette: { tsmc: "#f59e0b", samsung: "#3b82f6", intel: "#10b981", other: "#6b7280" },
+      showLegend: true,
+      emptyColor: "#111827",
+    },
+    isFeatured: true,
+    category: "technology",
+  }
 ];
 
 // ─────────────────────────────────────────────

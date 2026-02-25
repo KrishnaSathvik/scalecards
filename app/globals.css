@@ -36,45 +36,8 @@
     --brand-cyan: #06b6d4;
     --brand-green: #10b981;
   }
-
-  .dark {
-    --background: 240 33% 6%;
-    /* #0a0a14 mapped roughly to HSL */
-    --foreground: 210 40% 98%;
-    /* zinc-100 */
-    --card: 217 24% 11%;
-    /* #111827 roughly */
-    --card-foreground: 210 40% 98%;
-    --popover: 217 24% 11%;
-    --popover-foreground: 210 40% 98%;
-    --border: 240 4% 16%;
-    /* zinc-800 mostly */
-    --input: 240 4% 16%;
-    --primary: 236 86% 67%;
-    /* #6366f1 */
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 240 5% 65%;
-    /* zinc-400 */
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --ring: 212.7 26.8% 83.9%;
-
-    --bg-surface: 240 28% 14%;
-    /* #1a1a2e */
-    --grid-color: rgba(255, 255, 255, 0.05);
-
-    --brand-gradient: linear-gradient(90deg, #6366f1 0%, #a855f7 50%, #f472b6 100%);
-    --brand-yellow: #facc15;
-    --brand-pink: #f472b6;
-    --brand-cyan: #22d3ee;
-    --brand-green: #34d399;
-  }
 }
+
 
 @layer base {
   * {
@@ -96,7 +59,7 @@
 
 /* Typography scale */
 .text-hero {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -111,7 +74,7 @@
 }
 
 .text-subtitle {
-  font-size: 1.25rem;
+  font-size: clamp(1.1rem, 4vw, 1.25rem);
   font-weight: 500;
   color: hsl(var(--muted-foreground));
 }
@@ -122,7 +85,7 @@
 }
 
 .text-section {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 5vw, 2rem);
   font-weight: 700;
   color: hsl(var(--foreground));
 }
@@ -199,12 +162,6 @@ html {
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(99, 102, 241, 0.15);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 40px rgba(99, 102, 241, 0.05);
-}
-
-.dark .dot-tooltip {
-  background: rgba(17, 24, 39, 0.9);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(99, 102, 241, 0.05);
 }
 
 @keyframes tooltipIn {

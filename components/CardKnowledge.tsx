@@ -18,7 +18,7 @@ export default function CardKnowledge({ knowledge, relatedCards }: Props) {
     return (
         <div className="rounded-xl bg-surface border border-border overflow-hidden">
             {/* Header */}
-            <div className="px-6 py-4 border-b border-border bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5">
+            <div className="px-5 sm:px-6 py-4 border-b border-border bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5">
                 <h3 className="font-mono text-xs tracking-wider uppercase text-muted-foreground mb-2">
                     <span className="text-gradient">About This Card</span>
                 </h3>
@@ -27,7 +27,7 @@ export default function CardKnowledge({ knowledge, relatedCards }: Props) {
                 </p>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div className="p-5 sm:p-6 space-y-6">
                 {/* Explanation */}
                 <div>
                     <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">

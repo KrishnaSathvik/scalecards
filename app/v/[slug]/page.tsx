@@ -11,7 +11,6 @@ import {
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import CardGridSvg from "@/components/CardGridSvg";
 import CardLegend from "@/components/CardLegend";
 import ShareBar from "@/components/ShareBar";
@@ -108,7 +107,7 @@ export default async function CardPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-grid">
       {/* Back nav */}
-      <nav className="max-w-5xl mx-auto px-6 pt-8 flex justify-between items-center">
+      <nav className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 flex justify-between items-center">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors font-mono"
@@ -125,10 +124,9 @@ export default async function CardPage({ params }: PageProps) {
           </svg>
           All cards
         </Link>
-        <ThemeToggle />
       </nav>
 
-      <main className="max-w-5xl mx-auto px-6 pt-8 pb-24">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-20 sm:pb-24">
         {/* Title block */}
         <div className="mb-8 animate-fade-in opacity-0">
           <h1 className="text-hero text-gradient font-extrabold tracking-tight leading-tight mb-2">
@@ -141,7 +139,7 @@ export default async function CardPage({ params }: PageProps) {
 
         {/* Grid + Legend */}
         <div className="animate-fade-in opacity-0 animate-delay-100">
-          <div className="rounded-2xl bg-card border border-border p-8 md:p-12 shadow-lg">
+          <div className="rounded-2xl bg-card border border-border p-5 sm:p-8 md:p-12 shadow-lg">
             {/* Dot label */}
             <p className="font-mono text-meta mb-4">
               {formatDotLabel(payload.dotValue, payload.unitLabel)}
@@ -217,7 +215,7 @@ export default async function CardPage({ params }: PageProps) {
                     </span>
                   )}
                   {sourceMeta?.type === "estimated" && (
-                    <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded-full bg-amber-500/20 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                    <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-600">
                       <FaExclamationTriangle className="w-2.5 h-2.5" /> Estimate-based
                     </span>
                   )}
@@ -283,7 +281,7 @@ export default async function CardPage({ params }: PageProps) {
 
             {/* Transparency note for estimate-based datasets */}
             {datasetSourceMeta[card.dataset.slug]?.type === "estimated" && (
-              <p className="mt-3 text-xs text-amber-600/80 dark:text-amber-400/60 font-mono leading-relaxed flex items-start gap-1.5">
+              <p className="mt-3 text-xs text-amber-600/80 font-mono leading-relaxed flex items-start gap-1.5">
                 <FaExclamationTriangle className="w-3 h-3 mt-0.5 shrink-0" />
                 <span>
                   This dataset uses published survey estimates, not a live data feed.

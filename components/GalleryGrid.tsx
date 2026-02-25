@@ -6,6 +6,7 @@ import Link from "next/link";
 import CategoryFilter, {
     type FilterCategory,
 } from "@/components/CategoryFilter";
+import Pagination from "@/components/Pagination";
 import {
     generateGridSpec,
     getDynamicSubtitle,
@@ -46,6 +47,8 @@ function timeAgo(dateStr: string): string {
 
 export default function GalleryGrid({ cards }: Props) {
     const [filter, setFilter] = useState<FilterCategory>("all");
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 12;
 
     // Calculate counts per category
     const counts = useMemo(() => {
@@ -72,16 +75,29 @@ export default function GalleryGrid({ cards }: Props) {
         return cards.filter((card) => card.category === filter);
     }, [cards, filter]);
 
+    // Reset page to 1 when filter changes
+    const handleFilterChange = (newFilter: FilterCategory) => {
+        setFilter(newFilter);
+        setCurrentPage(1);
+    };
+
+    // Calculate pagination slices
+    const totalPages = Math.ceil(filteredCards.length / pageSize);
+    const paginatedCards = useMemo(() => {
+        const startIndex = (currentPage - 1) * pageSize;
+        return filteredCards.slice(startIndex, startIndex + pageSize);
+    }, [filteredCards, currentPage, pageSize]);
+
     return (
         <>
             <CategoryFilter
                 activeFilter={filter}
-                onFilterChange={setFilter}
+                onFilterChange={handleFilterChange}
                 counts={counts}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {filteredCards.map((card, i) => {
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                {paginatedCards.map((card, i) => {
                     const config = card.config as unknown as CardConfig;
                     const payload = card.snapshot?.payload as unknown as SnapshotPayload;
 
@@ -101,7 +117,7 @@ export default function GalleryGrid({ cards }: Props) {
                         <Link
                             key={card.id}
                             href={`/v/${card.slug}`}
-                            className="card-glow block rounded-2xl bg-card border border-border p-8 animate-fade-in opacity-0 shadow-lg hover:shadow-xl transition-shadow"
+                            className="card-glow block rounded-2xl bg-card border border-border p-6 sm:p-8 animate-fade-in opacity-0 shadow-lg hover:shadow-xl transition-shadow"
                             style={{ animationDelay: `${100 + i * 60}ms` }}
                         >
                             {/* Category badge */}
@@ -169,6 +185,15 @@ export default function GalleryGrid({ cards }: Props) {
                         No cards in this category yet.
                     </p>
                 </div>
+            )}
+
+            {/* Pagination Controls */}
+            {filteredCards.length > 0 && (
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                />
             )}
         </>
     );

@@ -1321,6 +1321,174 @@ async function fetchWaterUsage(): Promise<SnapshotPayload> {
   };
 }
 
+// ── BRAND NEW FETCHERS (10) ──
+
+async function fetchGlobalEwaste(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "million tonnes/year",
+    dotValue: 1,
+    total: 62,
+    categories: [
+      { key: "unrecycled", label: "Unmanaged / Dumped", value: 48 },
+      { key: "recycled", label: "Properly Recycled", value: 14 },
+    ],
+    notes: "Global E-waste Monitor (2024). 62 million tonnes generated annually. Only 22.3% is documented as formally collected and recycled.",
+  };
+}
+
+async function fetchGlobalLandUse(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "% of habitable land",
+    dotValue: 1,
+    total: 100,
+    categories: [
+      { key: "agriculture", label: "Agriculture", value: 46 },
+      { key: "forests", label: "Forests", value: 38 },
+      { key: "shrub", label: "Shrubs / Grassland", value: 14 },
+      { key: "urban", label: "Urban / Built-up", value: 2 },
+    ],
+    notes: "Our World in Data. Half of global habitable land is used for agriculture. Urban centers, despite housing over half the population, use just 1.5%.",
+  };
+}
+
+async function fetchShipsAtSea(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "ships",
+    dotValue: 200,
+    total: 50000,
+    categories: [
+      { key: "cargo", label: "Cargo / Freight", value: 35000 },
+      { key: "tankers", label: "Tankers", value: 10000 },
+      { key: "passenger", label: "Passenger / Other", value: 5000 },
+    ],
+    notes: "MarineTraffic estimates roughly 50,000 to 60,000 merchant ships trading internationally at any given moment.",
+  };
+}
+
+async function fetchSolarActivityToday(): Promise<SnapshotPayload> {
+  try {
+    const res = await fetch("https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json", { next: { revalidate: 0 } });
+    if (res.ok) {
+      const data = await res.json();
+      const latest = data[data.length - 1]; // NOAA sends an array of historical observations
+      if (latest && latest.ssn !== undefined) {
+        const ssn = Math.round(latest.ssn);
+        return {
+          unitLabel: "sunspots",
+          dotValue: 1,
+          total: ssn,
+          categories: [
+            { key: "sunspots", label: "Active Sunspots today", value: ssn },
+          ],
+          notes: `NOAA Space Weather Prediction Center. Latest measured monthly sunspot number: ${ssn}.`,
+        };
+      }
+    }
+  } catch { }
+  return {
+    unitLabel: "sunspots",
+    dotValue: 1,
+    total: 120,
+    categories: [
+      { key: "sunspots", label: "Active Sunspots today", value: 120 },
+    ],
+    notes: "NOAA Space Weather Prediction Center. Sunspot number varies daily. Peak solar maximum pushes this well over 100+.",
+  };
+}
+
+async function fetchBillionairesVsGDP(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "billion USD",
+    dotValue: 10,
+    total: 1500,
+    categories: [
+      { key: "musk", label: "Elon Musk", value: 250 },
+      { key: "arnault", label: "Bernard Arnault", value: 230 },
+      { key: "bezos", label: "Jeff Bezos", value: 190 },
+      { key: "zuckerberg", label: "Mark Zuckerberg", value: 160 },
+      { key: "gdp_nations", label: "Equivalent to GDP of bottom 50 nations", value: 670 },
+    ],
+    notes: "Forbes Real-Time Billionaires. The top few individuals hold wealth surpassing the combined GDP of dozens of smaller developing nations.",
+  };
+}
+
+async function fetchGenerationalWealth(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "% of US wealth",
+    dotValue: 1,
+    total: 100,
+    categories: [
+      { key: "boomers", label: "Baby Boomers (~$75T)", value: 50 },
+      { key: "genx", label: "Generation X (~$40T)", value: 27 },
+      { key: "silent", label: "Silent Gen (~$18T)", value: 14 },
+      { key: "millennials", label: "Millennials (~$13T)", value: 9 },
+    ],
+    notes: "Federal Reserve Board (2024). Boomers hold half of all US wealth. Millennials hold roughly 9% despite making up the largest workforce segment.",
+  };
+}
+
+async function fetchCausesOfMortality(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "million deaths/year",
+    dotValue: 0.5,
+    total: 61,
+    categories: [
+      { key: "cardio", label: "Cardiovascular diseases", value: 20 },
+      { key: "cancer", label: "Cancers", value: 10 },
+      { key: "respiratory", label: "Respiratory diseases", value: 4 },
+      { key: "digestive", label: "Digestive/Other NCDs", value: 15 },
+      { key: "infectious", label: "Infectious diseases & maternal", value: 8 },
+      { key: "injuries", label: "Injuries", value: 4 },
+    ],
+    notes: "Our World in Data / WHO. Around 61 million people die each year. Cardiovascular disease remains the leading cause globally. (Numbers simplified).",
+  };
+}
+
+async function fetchEradicatedDiseases(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "million lives saved",
+    dotValue: 2,
+    total: 154,
+    categories: [
+      { key: "measles", label: "Measles", value: 94 },
+      { key: "polio", label: "Polio", value: 22 },
+      { key: "tetanus", label: "Neonatal tetanus", value: 15 },
+      { key: "other", label: "Other vaccines", value: 23 },
+    ],
+    notes: "WHO (2024 report): Global immunization efforts have saved an estimated 154 million lives over the last 50 years, primarily infants.",
+  };
+}
+
+async function fetchDataCreation(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "Zettabytes (ZB)",
+    dotValue: 1,
+    total: 147,
+    categories: [
+      { key: "video", label: "Video streaming & media", value: 70 },
+      { key: "social", label: "Social & Communications", value: 30 },
+      { key: "enterp", label: "Enterprise/IoT/Cloud", value: 40 },
+      { key: "other", label: "Other", value: 7 },
+    ],
+    notes: "Statista (2024 estimate). 147 Zettabytes generated worldwide. 1 ZB = 1 billion Terabytes.",
+  };
+}
+
+async function fetchSemiconductorManufacturing(): Promise<SnapshotPayload> {
+  return {
+    unitLabel: "% of advanced chips (<10nm)",
+    dotValue: 1,
+    total: 100,
+    categories: [
+      { key: "tsmc", label: "Taiwan (TSMC)", value: 68 },
+      { key: "samsung", label: "South Korea (Samsung)", value: 17 },
+      { key: "intel", label: "USA (Intel)", value: 12 },
+      { key: "other", label: "Other", value: 3 },
+    ],
+    notes: "TrendForce. The global supply of the most advanced logic chips is heavily centralized, mostly manufactured in Taiwan.",
+  };
+}
+
 export const datasetFetchers: Record<string, DatasetFetcher> = {
   // Real-time & highly fresh new APIs
   "us-national-debt": fetchUSNationalDebt,
@@ -1357,6 +1525,18 @@ export const datasetFetchers: Record<string, DatasetFetcher> = {
   "food-waste": fetchFoodWaste,
   "extreme-poverty": fetchExtremePoverty,
   "water-usage": fetchWaterUsage,
+
+  // BRAND NEW: 10 completely new datasets
+  "global-ewaste": fetchGlobalEwaste,
+  "global-land-use": fetchGlobalLandUse,
+  "ships-at-sea": fetchShipsAtSea,
+  "solar-activity-today": fetchSolarActivityToday,
+  "billionaires-vs-gdp": fetchBillionairesVsGDP,
+  "generational-wealth": fetchGenerationalWealth,
+  "causes-of-mortality": fetchCausesOfMortality,
+  "eradicated-diseases": fetchEradicatedDiseases,
+  "data-creation": fetchDataCreation,
+  "semiconductor-manufacturing": fetchSemiconductorManufacturing,
 };
 
 /**
@@ -1501,6 +1681,56 @@ export const datasetSourceMeta: Record<
     type: "estimated",
     apis: ["FAO AQUASTAT"],
     note: "Based on FAO AQUASTAT global water withdrawal data. Updated periodically.",
+  },
+  "global-ewaste": {
+    type: "estimated",
+    apis: ["Global E-waste Monitor"],
+    note: "Based on the Global E-waste Monitor report.",
+  },
+  "global-land-use": {
+    type: "estimated",
+    apis: ["Our World in Data"],
+    note: "Based on OWID compiled land use statistics.",
+  },
+  "ships-at-sea": {
+    type: "estimated",
+    apis: ["MarineTraffic"],
+    note: "Approximation 50-60k from MarineTraffic active fleets (requires paid API).",
+  },
+  "solar-activity-today": {
+    type: "apiDaily",
+    apis: ["NOAA SWPC API"],
+    note: "Latest measured observered sunspot counts by NOAA.",
+  },
+  "billionaires-vs-gdp": {
+    type: "estimated",
+    apis: ["Forbes Real-Time Billionaires"],
+    note: "Approximations derived from Forbes and World Bank GDP data.",
+  },
+  "generational-wealth": {
+    type: "estimated",
+    apis: ["Federal Reserve"],
+    note: "Estimates retrieved from Federal Reserve Q3/Q4 reports on wealth distributions.",
+  },
+  "causes-of-mortality": {
+    type: "estimated",
+    apis: ["Our World in Data", "WHO"],
+    note: "Static estimates aggregating leading global deaths.",
+  },
+  "eradicated-diseases": {
+    type: "estimated",
+    apis: ["WHO"],
+    note: "Based on the WHO 2024 Extended Programme on Immunization tracking.",
+  },
+  "data-creation": {
+    type: "estimated",
+    apis: ["Statista"],
+    note: "Global estimated storage ZB capacity metrics.",
+  },
+  "semiconductor-manufacturing": {
+    type: "estimated",
+    apis: ["TrendForce"],
+    note: "Foundry advanced chip revenue and structural share breakdown.",
   },
 };
 
