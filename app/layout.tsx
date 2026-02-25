@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   authors: [{ name: "ScaleCards" }],
   creator: "ScaleCards",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.dev"
+    process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.vercel.app"
   ),
   openGraph: {
     type: "website",

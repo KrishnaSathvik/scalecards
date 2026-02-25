@@ -28,6 +28,7 @@ type CardData = {
     };
     snapshot: {
         payload: unknown;
+        collectedAt: string;
     } | null;
 };
 
@@ -169,8 +170,8 @@ export default function GalleryGrid({ cards }: Props) {
                                     <span className="w-2 h-2 rounded-full bg-indigo-500" />
                                     {card.dataset.refreshRate}
                                 </span>
-                                {card.dataset.lastRefreshedAt && (
-                                    <span>Updated {timeAgo(card.dataset.lastRefreshedAt)}</span>
+                                {card.snapshot?.collectedAt && (
+                                    <span>Updated {timeAgo(card.snapshot.collectedAt)}</span>
                                 )}
                             </div>
                         </Link>

@@ -152,7 +152,7 @@ export async function GET(
 
   // Source URL (Right-aligned)
   svgParts.push(
-    `<text x="${footerRightX}" y="${footerY + 30}" fill="${subtitleColor}" font-size="16" font-family="system-ui, sans-serif" text-anchor="end">scalecards.dev/v/${slug}</text>`
+    `<text x="${footerRightX}" y="${footerY + 30}" fill="${subtitleColor}" font-size="16" font-family="system-ui, sans-serif" text-anchor="end">scalecards.vercel.app/v/${slug}</text>`
   );
 
   svgParts.push("</svg>");

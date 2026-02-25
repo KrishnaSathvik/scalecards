@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/db";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.dev";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.vercel.app";
 
     // Get all featured cards for the sitemap
     const cards = await prisma.card.findMany({

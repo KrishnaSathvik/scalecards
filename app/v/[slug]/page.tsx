@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const dynSubtitle = getDynamicSubtitle(card, payload);
   const desc = dynSubtitle || card.dataset.description;
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.dev";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.vercel.app";
   return {
     title: `${card.title} — ScaleCards`,
     description: desc,
@@ -268,10 +268,10 @@ export default async function CardPage({ params }: PageProps) {
                 }
                 return null;
               })()}
-              {card.dataset.lastRefreshedAt && (
+              {card.snapshot?.collectedAt && (
                 <span>
                   Fetched:{" "}
-                  {card.dataset.lastRefreshedAt.toISOString().slice(0, 16)} UTC
+                  {card.snapshot.collectedAt.toISOString().slice(0, 16)} UTC
                 </span>
               )}
               <span>

@@ -47,7 +47,7 @@ export default async function EmbedPage({ params }: PageProps) {
     const payload = card.snapshot.payload as unknown as SnapshotPayload;
     const spec = generateGridSpec(payload, config, "page");
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.dev";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.vercel.app";
 
     return (
         <div className="min-h-screen bg-grid p-4 sm:p-6 flex flex-col justify-center items-center">
@@ -74,7 +74,7 @@ export default async function EmbedPage({ params }: PageProps) {
                             rel="noopener noreferrer"
                             className="text-xs font-mono text-indigo-400 hover:text-indigo-300 transition-colors"
                         >
-                            scalecards.dev ↗
+                            scalecards.vercel.app ↗
                         </a>
                     </div>
 

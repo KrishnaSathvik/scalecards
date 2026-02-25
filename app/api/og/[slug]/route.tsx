@@ -185,7 +185,7 @@ export async function GET(
           </div>
 
           <div style={{ fontSize: 18, color: subtitleColor }}>
-            {`scalecards.dev/v/${slug}`}
+            {`scalecards.vercel.app/v/${slug}`}
           </div>
         </div>
       </div>

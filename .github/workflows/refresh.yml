@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Ping Refresh Endpoint
         run: |
-          curl -X GET "https://scalecards.dev/api/refresh?force=true" \
+          curl -X GET "https://scalecards.vercel.app/api/refresh?force=true" \
           -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"

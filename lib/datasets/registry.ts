@@ -119,7 +119,7 @@ async function fetchWikipediaPageviews(): Promise<SnapshotPayload> {
     // Quick check with all-access to see if this date has data
     const probe = await fetch(
       `https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/en.wikipedia/all-access/user/daily/${candidate}/${candidate}`,
-      { headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
+      { headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" } }
     );
     if (probe.ok) {
       dateStr = candidate;
@@ -152,7 +152,7 @@ async function fetchWikipediaPageviews(): Promise<SnapshotPayload> {
     const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/en.wikipedia/${accessType}/user/daily/${dateStr}/${dateStr}`;
     try {
       const res = await fetch(url, {
-        headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" },
+        headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" },
       });
       if (res.ok) {
         const data = await res.json();
@@ -419,7 +419,7 @@ async function fetchMilitarySpending(): Promise<SnapshotPayload> {
 
   const res = await fetch(url, {
     next: { revalidate: 0 },
-    headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" }
+    headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" }
   });
   if (!res.ok) throw new Error(`World Bank API error: ${res.status}`);
   const json = await res.json();
@@ -480,11 +480,11 @@ async function fetchInternetAccess(): Promise<SnapshotPayload> {
   const [internetRes, popRes] = await Promise.all([
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/IT.NET.USER.ZS?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" } }
     ),
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" } }
     ),
   ]);
 
@@ -553,11 +553,11 @@ async function fetchSmartphoneAccess(): Promise<SnapshotPayload> {
   const [mobileRes, popRes] = await Promise.all([
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/IT.CEL.SETS?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" } }
     ),
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" } }
     ),
   ]);
 
@@ -628,7 +628,7 @@ async function fetchAIAdoption(): Promise<SnapshotPayload> {
     const dateRange = `${currentYear - 2}:${currentYear}`;
     const popRes = await fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=${dateRange}&per_page=5`,
-      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" } }
     );
 
     let population = 8_200_000_000;
@@ -1239,11 +1239,11 @@ async function fetchExtremePoverty(): Promise<SnapshotPayload> {
   const [popRes, povertyRes] = await Promise.all([
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" } }
     ),
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SI.POV.DDAY?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.vercel.app)" } }
     ),
   ]);
 

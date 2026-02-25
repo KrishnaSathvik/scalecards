@@ -28,7 +28,10 @@ export default async function GalleryPage() {
       lastRefreshedAt: card.dataset.lastRefreshedAt?.toISOString() ?? null,
     },
     snapshot: card.snapshot
-      ? { payload: card.snapshot.payload }
+      ? {
+        payload: card.snapshot.payload,
+        collectedAt: card.snapshot.collectedAt.toISOString()
+      }
       : null,
   }));
 

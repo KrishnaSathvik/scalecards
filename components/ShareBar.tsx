@@ -13,7 +13,7 @@ export default function ShareBar({ slug, title, description }: Props) {
   const [copied, setCopied] = useState(false);
   const [copiedEmbed, setCopiedEmbed] = useState(false);
   const [baseUrl, setBaseUrl] = useState(
-    process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.dev"
+    process.env.NEXT_PUBLIC_BASE_URL ?? "https://scalecards.vercel.app"
   );
   useEffect(() => {
     setBaseUrl(window.location.origin);
