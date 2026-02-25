@@ -417,7 +417,10 @@ async function fetchMilitarySpending(): Promise<SnapshotPayload> {
 
   const url = `https://api.worldbank.org/v2/country/${countryParam}/indicator/MS.MIL.XPND.CD?format=json&date=${dateRange}&per_page=100`;
 
-  const res = await fetch(url, { next: { revalidate: 0 } });
+  const res = await fetch(url, {
+    next: { revalidate: 0 },
+    headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" }
+  });
   if (!res.ok) throw new Error(`World Bank API error: ${res.status}`);
   const json = await res.json();
 
@@ -477,11 +480,11 @@ async function fetchInternetAccess(): Promise<SnapshotPayload> {
   const [internetRes, popRes] = await Promise.all([
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/IT.NET.USER.ZS?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
     ),
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
     ),
   ]);
 
@@ -550,11 +553,11 @@ async function fetchSmartphoneAccess(): Promise<SnapshotPayload> {
   const [mobileRes, popRes] = await Promise.all([
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/IT.CEL.SETS?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
     ),
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
     ),
   ]);
 
@@ -625,7 +628,7 @@ async function fetchAIAdoption(): Promise<SnapshotPayload> {
     const dateRange = `${currentYear - 2}:${currentYear}`;
     const popRes = await fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=${dateRange}&per_page=5`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
     );
 
     let population = 8_200_000_000;
@@ -1236,11 +1239,11 @@ async function fetchExtremePoverty(): Promise<SnapshotPayload> {
   const [popRes, povertyRes] = await Promise.all([
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
     ),
     fetch(
       `https://api.worldbank.org/v2/country/WLD/indicator/SI.POV.DDAY?format=json&date=${dateRange}&per_page=10`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 0 }, headers: { "User-Agent": "ScaleCards/1.0 (contact@scalecards.dev)" } }
     ),
   ]);
 
